@@ -15,7 +15,7 @@ def my_test_suite():
 
 setup(
     name="rate-limiter",
-    version='0.1.0',
+    version='0.1.1',
     description='Rate Limiter',
     classifiers=[
         'Intended Audience :: Developers',
