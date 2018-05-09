@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from setuptools import setup
-import os, re
+import re
+import os
 
 
 _packages = {
