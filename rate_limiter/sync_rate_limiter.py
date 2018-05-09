@@ -148,7 +148,7 @@ class RateLimiter:
         try:
             # If this fails you'll permanently decrease your available max_rate by one, and if max_rate == 1 deadlock
             self._end_time_q.put(time.time())
-        except:
+        except BaseException:
             if self._max_rate == 1:
                 self._logger.exception("Error registering rate limiter hit, deadlocked!")
             else:

@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 from setuptools import setup
+import re
+import os
+
 
 _packages = {
     'rate_limiter': 'rate_limiter',
@@ -13,9 +16,23 @@ def my_test_suite():
     return test_suite
 
 
+def read_version():
+    regexp = re.compile(r"^__version__\W*=\W*'([\d.abrc]+)'")
+    init_py = os.path.join(os.path.dirname(__file__),
+                           'rate_limiter', '__init__.py')
+    with open(init_py) as f:
+        for line in f:
+            match = regexp.match(line)
+            if match is not None:
+                return match.group(1)
+        else:
+            raise RuntimeError('Cannot find version in '
+                               'rate_limiter/__init__.py')
+
+
 setup(
     name="rate-limiter",
-    version='0.1.0',
+    version=read_version(),
     description='Rate Limiter',
     classifiers=[
         'Intended Audience :: Developers',
@@ -23,6 +40,7 @@ setup(
     ],
     author='Alexander Mohr',
     author_email='thehesiod@gmail.com',
+    url='https://github.com/thehesiod/rate_limiter',
     package_dir=_packages,
     packages=list(_packages.keys()),
     install_requires=[

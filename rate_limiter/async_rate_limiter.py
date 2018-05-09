@@ -135,6 +135,6 @@ class RateLimiter:
                 # timer will iterate through all the pending events and re-register if they're not yet releasable.
                 # If this fails you'll deadlock if your max_rate == 1
                 self._release_task = asyncio.ensure_future(self._release_worker(self._period_s))
-        except:
+        except BaseException:
             self._logger.exception("Error registering rate limiter hit, potential for deadlock!!!")
             raise
