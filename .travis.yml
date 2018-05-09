@@ -1,0 +1,24 @@
+language: python
+
+python:
+    - 3.6
+
+matrix:
+  include:
+  - python: 3.6
+
+install:
+    - pip install -U setuptools codecov coverage
+    - pip install -r requirements-dev.txt
+    - pip freeze
+
+script:
+    - python setup.py check -rms
+    - flake8 rate_limiter tests setup.py
+    - python3 -m coverage run --omit=tests/* -m unittest discover -s tests
+    - python3 -m coverage html
+	- @echo "open file://`pwd`/htmlcov/index.html"
+after_success:
+    codecov
+
+cache: pip
